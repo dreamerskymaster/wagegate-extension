@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="icons/icon128.png" width="128" height="128" alt="WageGate Logo">
+</p>
+
 # 🛡️ WageGate: H1B Level Badge
 
 **WageGate** is a Chrome Extension that automatically injects H1B Prevailing Wage levels directly into job postings on **LinkedIn** and **Indeed**. 
@@ -24,7 +28,7 @@ Since this is a specialized tool, you can install it as a "Unpacked" extension:
 
 1.  **Clone this repository**:
     ```bash
-    git clone https://github.com/YOUR_USERNAME/wagegate-extension.git
+    git clone https://github.com/dreamerskymaster/wagegate-extension.git
     ```
 2.  Open Chrome and navigate to `chrome://extensions/`.
 3.  Turn on **Developer mode** (toggle in the top right).
@@ -51,4 +55,4 @@ WageGate does **not** store your data. It only sends the anonymous Job Title and
 
 ## ⚖️ License
 
-MIT License. Created by [Your Name].
+MIT License. Created by **Ajith Srikanth**.
