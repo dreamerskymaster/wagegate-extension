@@ -1,27 +1,31 @@
-// WageGate H1B Level Badge - Background Service Worker
-// Lightweight for v1: just logs install/update events.
+// WageGate - Background Service Worker
 
-chrome.runtime.onInstalled.addListener((details) => {
-  console.log('[WageGate] Extension installed:', details.reason);
+const WAGEGATE_URL = 'https://wagegate.onrender.com';
+// const WAGEGATE_URL = 'http://localhost:3000';
+
+chrome.runtime.onInstalled.addListener(() => {
+  console.log('[WageGate] Extension installed');
+  
+  // Create context menu for highlighted text
+  chrome.contextMenus.create({
+    id: "wagegate-search",
+    title: "Check Prevailing Wage for '%s'",
+    contexts: ["selection"]
+  });
 });
 
-// Proxy API calls to avoid CORS issues in content scripts
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'FETCH_WAGE') {
-    const { title, state, salary } = request.data;
-    
-    fetch('http://localhost:3000/api/prevailing-wage', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, state, salary })
-    })
-    .then(r => r.json())
-    .then(data => sendResponse({ success: true, data }))
-    .catch(err => {
-      console.error('[WageGate] Background fetch error:', err);
-      sendResponse({ success: false, error: err.message });
-    });
-
-    return true; // Keep channel open for async response
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === "wagegate-search") {
+    const selectedText = info.selectionText;
+    if (selectedText) {
+      // Pass the highlighted text to the main website via query param
+      const url = `${WAGEGATE_URL}/?title=${encodeURIComponent(selectedText.trim())}`;
+      chrome.tabs.create({ url });
+    }
   }
+});
+
+// Act as a quick launcher when the extension icon is clicked
+chrome.action.onClicked.addListener((tab) => {
+  chrome.tabs.create({ url: WAGEGATE_URL });
 });
