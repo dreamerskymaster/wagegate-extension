@@ -4,6 +4,13 @@
 
 # 🛡️ WageGate: H1B Prevailing Wage Search
 
+[![Launch Video](https://img.shields.io/badge/Launch%20Video-MP4-ff0055?style=for-the-badge&logo=youtube&logoColor=white)](brag-output/brag.mp4)
+[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-10b981?style=for-the-badge&logo=google-chrome&logoColor=white)](https://github.com/dreamerskymaster/wagegate-extension)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+![WageGate Demo](docs/demo.gif)
+
+
 **WageGate** is a Chrome Extension that lets you check H1B Prevailing Wage levels for any job title on **any** website — LinkedIn, Indeed, Glassdoor, ZipRecruiter, company career pages, or anywhere else.
 
 Simply highlight a job title, right-click, and instantly see where the salary falls on the H1B wage scale using official BLS OES data.

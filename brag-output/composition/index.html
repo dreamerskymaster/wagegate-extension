@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>WageGate Launch</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0a0f1d;
+        --surface: #111827;
+        --border: #1e293b;
+        --emerald: #10b981;
+        --emerald-glow: rgba(16, 185, 129, 0.25);
+        --cyan: #06b6d4;
+        --ink: #f8fafc;
+        --muted: #94a3b8;
+        --font-mono: 'JetBrains Mono', monospace;
+        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); font-family: var(--font-sans); color: var(--ink); }
+      #root { position: relative; width: 1920px; height: 1080px; background: radial-gradient(circle at 50% 20%, #162438 0%, #0a0f1d 80%); }
+      .grid { position: absolute; inset: 0; background-size: 50px 50px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px); }
+      .scene { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 100px; opacity: 0; }
+      .pill { display: inline-flex; align-items: center; gap: 12px; padding: 12px 28px; border-radius: 9999px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: var(--emerald); font-family: var(--font-mono); font-size: 18px; font-weight: 700; text-transform: uppercase; margin-bottom: 24px; box-shadow: 0 0 25px var(--emerald-glow); }
+      .hero-title { font-size: 96px; font-weight: 900; line-height: 1; text-align: center; margin-bottom: 20px; background: linear-gradient(135deg, #ffffff 40%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .hero-sub { font-size: 28px; color: var(--muted); text-align: center; max-width: 1000px; line-height: 1.45; }
+      .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; width: 100%; max-width: 1440px; margin-top: 36px; }
+      .level-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 10px; }
+      .level-tag { font-family: var(--font-mono); font-size: 16px; font-weight: 700; color: var(--cyan); }
+      .level-salary { font-family: var(--font-mono); font-size: 44px; font-weight: 800; color: #fff; }
+      .level-desc { font-size: 16px; color: var(--muted); }
+      .preview-window { width: 100%; max-width: 1300px; background: #0f172a; border: 1px solid #334155; border-radius: 20px; padding: 36px 48px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
+      .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+      .job-title { font-size: 32px; font-weight: 800; color: #fff; }
+      .badge-row { display: flex; gap: 16px; align-items: center; }
+      .wage-badge { padding: 10px 24px; border-radius: 8px; font-family: var(--font-mono); font-size: 18px; font-weight: 700; background: rgba(16, 185, 129, 0.2); border: 1px solid var(--emerald); color: var(--emerald); }
+      .url-pill { margin-top: 36px; display: inline-flex; align-items: center; gap: 16px; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 18px 40px; border-radius: 9999px; font-family: var(--font-mono); font-size: 24px; color: var(--emerald); }
+    </style>
+  </head>
+  <body>
+    <audio id="bgm" data-start="0" data-duration="18.0" data-track-index="0" data-volume="0.85" src="assets/music/bgm.mp3"></audio>
+    <audio id="sfx-chime" data-start="0.4" data-duration="0.62" data-track-index="1" data-volume="0.6" src="assets/sfx/chime.ogg"></audio>
+    <audio id="sfx-click-1" data-start="4.8" data-duration="0.13" data-track-index="1" data-volume="0.6" src="assets/sfx/click.ogg"></audio>
+    <audio id="sfx-click-2" data-start="9.8" data-duration="0.13" data-track-index="1" data-volume="0.6" src="assets/sfx/click.ogg"></audio>
+    <audio id="sfx-chime-end" data-start="14.2" data-duration="0.62" data-track-index="1" data-volume="0.6" src="assets/sfx/chime.ogg"></audio>
+
+    <div id="root" data-composition-id="root" data-width="1920" data-height="1080">
+      <div class="grid"></div>
+      <div id="scene-1" class="scene">
+        <div class="pill">🛡️ Chrome Web Store Extension</div>
+        <h1 class="hero-title">WageGate</h1>
+        <p class="hero-sub">Instant DOL H1B prevailing wage level intelligence directly inside LinkedIn and Indeed job postings.</p>
+      </div>
+
+      <div id="scene-2" class="scene">
+        <div class="pill">⚡ DOL LCA Prevailing Wage Levels</div>
+        <div class="levels-grid">
+          <div class="level-card">
+            <span class="level-tag">LEVEL 1: ENTRY</span>
+            <span class="level-salary">,200</span>
+            <span class="level-desc">Routine tasks under close supervision</span>
+          </div>
+          <div class="level-card">
+            <span class="level-tag">LEVEL 2: QUALIFIED</span>
+            <span class="level-salary">,500</span>
+            <span class="level-desc">Moderately complex tasks, limited judgment</span>
+          </div>
+          <div class="level-card">
+            <span class="level-tag">LEVEL 3: EXPERIENCED</span>
+            <span class="level-salary">,800</span>
+            <span class="level-desc">Specialized knowledge, sound judgment</span>
+          </div>
+          <div class="level-card">
+            <span class="level-tag">LEVEL 4: FULLY COMPETENT</span>
+            <span class="level-salary">,400</span>
+            <span class="level-desc">Plans, conducts, and coordinates assignments</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="scene-3" class="scene">
+        <div class="preview-window">
+          <div class="preview-header">
+            <div>
+              <div class="job-title">Senior Staff Software Engineer — Distributed Systems</div>
+              <div style="color: var(--muted); font-size: 18px; margin-top: 6px;">San Francisco, CA • Full-time • Tech Industry</div>
+            </div>
+            <div class="wage-badge">✓ WageGate Match: Level 3 (,800)</div>
+          </div>
+          <div style="background: #1e293b; border-radius: 12px; padding: 20px; font-family: var(--font-mono); font-size: 17px; color: #cbd5e1;">
+            SOC Code: 15-1252.00 • Area Code: 41860 (San Francisco-Oakland-Hayward, CA) • Base Match: 96%
+          </div>
+        </div>
+      </div>
+
+      <div id="scene-4" class="scene">
+        <div class="pill">🔒 100% Client-Side • Privacy First</div>
+        <h2 style="font-size: 78px; font-weight: 900; text-align: center; margin-bottom: 16px;">Know The Wage Level Before You Apply</h2>
+        <p style="font-size: 26px; color: var(--muted); text-align: center; max-width: 900px;">Available for Google Chrome. Fast, transparent salary data.</p>
+        <div class="url-pill"><span>github.com/dreamerskymaster/wagegate-extension</span></div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.to("#scene-1", { opacity: 1, duration: 0.8, y: 0, startAt: { y: 20 } }, 0.2)
+        .to("#scene-1", { opacity: 0, duration: 0.5, y: -20 }, 4.2)
+        .to("#scene-2", { opacity: 1, duration: 0.8, scale: 1, startAt: { scale: 0.95 } }, 4.7)
+        .to("#scene-2", { opacity: 0, duration: 0.5, y: -20 }, 9.0)
+        .to("#scene-3", { opacity: 1, duration: 0.8, y: 0, startAt: { y: 20 } }, 9.4)
+        .to("#scene-3", { opacity: 0, duration: 0.5, y: -20 }, 13.8)
+        .to("#scene-4", { opacity: 1, duration: 0.8, y: 0, startAt: { y: 20 } }, 14.2)
+        .to("#scene-4", { opacity: 0, duration: 0.6 }, 17.4);
+    </script>
+  </body>
+</html>
